@@ -21,7 +21,7 @@ class CVX():
         print('Running CVX...')
         loss = cvx.sum(cvx.logistic(cvx.multiply(-self.y, self.u)))
         obj = cvx.Minimize(loss)
-        consts = [(self.X @ self.w) - self.u == 0, (self.m @ self.w) - self.z == 0, self.z >= 0]
+        consts = [(self.X @ self.w) - self.u == 0, (self.m.T @ self.w) - self.z == 0, self.z >= 0]
         prob = cvx.Problem(obj, consts)
         prob.solve()
         self.w = self.w.value

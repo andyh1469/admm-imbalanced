@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 
 if __name__ == '__main__':
     # load dataset
-    (X_train,y_train), (X_test,y_test) = dataset_utils.load_cifar10(4,7)
+    (X_train,y_train), (X_test,y_test) = dataset_utils.load_cifar10(0,1)
 
     # preprocess and create imbalanced train set
     X_train, y_train = dataset_utils.preprocess(X_train, y_train, size=1000, isTrain=True)
@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     # unconstrained logistic regression
     print('Running vanilla logistic regression...')
-    clf = LogisticRegression(penalty='l2').fit(X_train, y_train)
+    clf = LogisticRegression(penalty='none').fit(X_train, y_train)
     print('Done!\n')
     print('Vanilla logistic regression results:')
     eval_utils.accuracy(clf.coef_[0], X_train, y_train, X_test, y_test)
