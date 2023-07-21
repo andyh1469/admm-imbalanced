@@ -1,4 +1,4 @@
-# ECE236C Project: ADMM for Class-Imbalanced Training of Binary Image Classifiers
+# ADMM for Class-Imbalanced Training of Binary Image Classifiers
 
 ## Summary:
 In machine learning, class imbalance is a common challenge for many classification tasks. It can arise in many applications, for example in medical diagnosis of rare skin conditions where the vast majority of available training samples come from people who do not have the disease. Lack of available data from one class often leads to the model prioritizing good performance on the majority class during training. As a result, the classifier exhibits especially poor performance on the minority class during test time. This problem is typically addressed by adding regularization terms to the loss function or pre-processing the training data. These measures still utilize common iterative methods such as gradient descent for training and do not involve changes to the optimization algorithm itself. 
