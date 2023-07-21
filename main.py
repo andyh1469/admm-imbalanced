@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 
 if __name__ == '__main__':
     # load dataset
-    (X_train,y_train), (X_test,y_test) = dataset_utils.load_cifar10(0,1)
+    (X_train,y_train), (X_test,y_test) = dataset_utils.load_cifar10(0,2)
 
     # preprocess and create imbalanced train set
     X_train, y_train = dataset_utils.preprocess(X_train, y_train, size=1000, isTrain=True)

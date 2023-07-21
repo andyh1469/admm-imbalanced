@@ -1,6 +1,5 @@
 import tensorflow as tf
 from sklearn.utils import shuffle
-from sklearn.preprocessing import normalize
 import numpy as np
 
 def load_cifar10(class1, class2):
@@ -38,7 +37,7 @@ def preprocess(X, y, size=None, isTrain=False):
     else:
         size = min(len(y),size)
 
-    X_new = normalize(X)[:size]
+    X_new = X[:size]/255.0
     y_new = y[:size]
 
     if isTrain:
