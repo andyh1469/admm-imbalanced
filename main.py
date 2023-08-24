@@ -3,6 +3,7 @@ from utils import eval_utils
 from solvers.admm import ADMM
 from solvers.cvx import CVX
 from sklearn.linear_model import LogisticRegression
+import time
 
 if __name__ == '__main__':
     # load dataset
@@ -17,15 +18,21 @@ if __name__ == '__main__':
 
     # ADMM
     admm = ADMM(X_train, y_train)
+    start = time.time()
     admm.run(diff=1e-2)
+    end = time.time()
     print('ADMM results:')
     eval_utils.accuracy(admm.w, X_train, y_train, X_test, y_test)
+    print('ADMM completed in {} seconds\n'.format(round(end - start, 2)))
 
     # CVX
     cvx = CVX(X_train, y_train)
+    start = time.time()
     cvx.run()
+    end = time.time()
     print('CVX results:')
     eval_utils.accuracy(cvx.w, X_train, y_train, X_test, y_test)
+    print('CVX completed in {} seconds\n'.format(round(end - start, 2)))
 
     # unconstrained logistic regression
     print('Running vanilla logistic regression...')
