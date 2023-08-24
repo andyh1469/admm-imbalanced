@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
     # unconstrained logistic regression
     print('Running vanilla logistic regression...')
-    clf = LogisticRegression(penalty='none').fit(X_train, y_train)
+    clf = LogisticRegression(penalty=None).fit(X_train, y_train)
     print('Done!\n')
     print('Vanilla logistic regression results:')
     eval_utils.accuracy(clf.coef_[0], X_train, y_train, X_test, y_test)

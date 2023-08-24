@@ -20,6 +20,9 @@ def load_cifar10(class1, class2):
     X_test = X_test[test_mask]
     y_test = y_test[test_mask]
 
+    X_train = np.hstack((X_train, np.ones((X_train.shape[0],1))))
+    X_test = np.hstack((X_test, np.ones((X_test.shape[0],1))))
+
     y_train = np.where(y_train == class2, -1, y_train)
     y_train = np.where(y_train == class1, 1, y_train)
     y_test = np.where(y_test == class2, -1, y_test)
