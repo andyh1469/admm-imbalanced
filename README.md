@@ -36,7 +36,7 @@ $$ C = \{z|z \geq 0\} $$
 ## ADMM Derivation
 The ADMM updates are derived using $a$ as the dual variable for the first constraint and $b$ as the dual variable for the second constraint. First, $w$ is updated:
 
-$$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + ) $$
+$$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} ||m^T \hat{w} - z^{(k)}||_{2}^{2}) $$
 
 $$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {\hat{u}^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
 
