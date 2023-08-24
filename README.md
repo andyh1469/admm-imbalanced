@@ -38,8 +38,6 @@ The ADMM updates are derived using $a$ as the dual variable for the first constr
 
 $$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {\hat{u}^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
 
-$$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
-
 This is a quadratic equation in $\hat{w}$, therefore the $w$ update can be computed by setting the derivative to zero and finding a solution to a system of linear equations:
 
 $$ w^{(k+1)} = (tX^T X + tmm^T)^{-1}q $$ 
