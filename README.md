@@ -12,7 +12,7 @@ The dataset used in this project is CIFAR-10, a collection of 32x32 color images
 
 $$ \underset{w}{min} \sum_i^{N_{total}}{log(1+exp(-y_i w^T x_i))} $$
 
-$w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $y_i \in \{ -1,1 \}$ represents the class label of the $i^{th}$ image.
+$w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $y_i \in {-1,1}$ represents the class label of the $i^{th}$ image.
 
 ## Adding Convex Constraints
 For convenience, the image vectors are concatenated into matrices:
@@ -31,7 +31,7 @@ $$ m^T w - z = 0 $$
 
 $$ where \space m = -\frac{1}{N_{minor}} X_{minor}^T \textbf{1} - \frac{1}{N_{major}} X_{major}^T \textbf{1}$$
 
-$$ C = \{z|z \geq 0\} $$
+$$ C = {z|z \geq 0} $$
 
 ## ADMM Derivation
 The ADMM updates are derived using $a$ as the dual variable for the first constraint and $b$ as the dual variable for the second constraint. First, $w$ is updated:
