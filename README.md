@@ -37,16 +37,19 @@ $$ C = \{z|z \geq 0\} $$
 The ADMM updates are derived using $a$ as the dual variable for the first constraint and $b$ as the dual variable for the second constraint. First, $w$ is updated:
 
 $$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
+
 $$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {\hat{u}^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
 
 This is a quadratic equation in $\hat{w}$, therefore the $w$ update can be computed by setting the derivative to zero and finding a solution to a system of linear equations:
 
 $$ w^{(k+1)} = (tX^T X + tmm^T)^{-1}q $$ 
+
 $$ where \space q = -X^T a^{(k)} + tX^T u^{(k)} + tz^{(k)} m $$
 
 Next, the variables $u,z$ are jointly updated. The augmented Lagrangian of $u$ is separable:
 
 $$ {u}_i^{(k+1)} = \underset{\hat{u}_i}{argmin} \space (-a_i^{(k)} \hat{u}_i + \frac{t}{2} \hat{u}_i^2 - t(Xw^{(k+1)})_i \hat{u}_i + log(1 + exp(-y_i \hat{u}_i))) $$
+
 $$ i = 1,...,N_{total} $$
 
 Each of the functions in $\hat{u}_i$ are differentiable and can be minimized using an iterative procedure such as Newton's method.
@@ -54,12 +57,15 @@ Each of the functions in $\hat{u}_i$ are differentiable and can be minimized usi
 Now the $z$ update is derived:
 
 $$ z^{(k+1)} = \underset{\hat{z}}{argmin} \space (\delta_C(\hat{z}) - b^{(k)} \hat{z} + \frac{t}{2} {||\hat{z} - m^T w^{(k+1)}||}_{2}^{2}) $$
+
 $$ = \underset{\hat{z}}{argmin} \space (\delta_C(\hat{z}) + \frac{t}{2} {||\hat{z} - m^T w^{(k+1)} - \frac{1}{t} b^{(k)}||}_{2}^{2}) $$
+
 $$ = prox_{\frac{1}{t}h} (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}) $$ 
 
 The projection onto $C$ is easy to compute as it is the projection onto the non-negative orthant. Finally, the dual variables are updated:
 
 $$ a^{(k+1)} = a^{(k)} + t(Xw^{(k+1)} - u^{(k+1)}) $$
+
 $$ b^{(k+1)} = b^{(k)} + t(m^T w^{(k+1)} - z^{(k+1)}) $$
 
 ## References:
