@@ -12,7 +12,7 @@ The dataset used in this project is CIFAR-10, a collection of 32x32 color images
 
 $$ \underset{w}{min} \sum_i^{N_{total}}{log(1+exp(-y_i w^T x_i))} $$
 
-$w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $ y_{i} \in \{ -1,1 \} $ represents the class label of the $i^{th}$ image.
+$w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $y_i \in \{-1,1\}$ represents the class label of the $i^{th}$ image.
 
 ## Adding Convex Constraints
 For convenience, the image vectors are concatenated into matrices:
