@@ -36,9 +36,9 @@ $$ C = \{z|z \geq 0\} $$
 ## ADMM Derivation
 The ADMM updates are derived using $a$ as the dual variable for the first constraint and $b$ as the dual variable for the second constraint. First, $w$ is updated:
 
-$$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
-
 $$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {\hat{u}^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
+
+$$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
 
 This is a quadratic equation in $\hat{w}$, therefore the $w$ update can be computed by setting the derivative to zero and finding a solution to a system of linear equations:
 
