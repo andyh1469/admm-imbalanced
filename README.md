@@ -24,10 +24,13 @@ The constrained training approach adds two affine constraints. The first constra
 $$ \underset{u,w,z}{min} \space\delta_c(z) + \sum_i^{N_{total}}{log(1+exp(-y_i u_i))} $$
 
 $$ subject \space to: $$
+
 $$ Xw - u = 0 $$
+
 $$ m^T w - z = 0 $$
 
 $$ where \space m = -\frac{1}{N_{minor}} X_{minor}^T \textbf{1} - \frac{1}{N_{major}} X_{major}^T \textbf{1}$$
+
 $$ C = \{z|z \geq 0\} $$
 
 # ADMM Derivation
