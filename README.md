@@ -1,20 +1,20 @@
 # ADMM for Class-Imbalanced Training of Binary Image Classifiers
 
-## Summary:
+# Summary:
 In machine learning, class imbalance is a common challenge for many classification tasks. It can arise in many applications, for example in medical diagnosis of rare skin conditions where the vast majority of available training samples come from people who do not have the disease. Lack of available data from one class often leads to the model prioritizing good performance on the majority class during training. As a result, the classifier exhibits especially poor performance on the minority class during test time. This problem is typically addressed by adding regularization terms to the loss function or pre-processing the training data. These measures still utilize common iterative methods such as gradient descent for training and do not involve changes to the optimization algorithm itself. 
 
 This project uses a dual optimization method (ADMM) to solve a large-scale logistic regression problem for binary image classification, given an imbalanced training set. A hard constraint is added to encourage the model to classify the minority labels with the same effectiveness as the majority labels.
 
-## Derivation:
+# Derivation:
 
-# Dataset and Initial Problem Setup
+## Dataset and Initial Problem Setup
 The dataset used in this project is CIFAR-10, a collection of 32x32 color images from 10 different classes. The coloring model is RGB, bringing the total dimensionality of each image vector to $R^{3072}$. The pixel values were normalized before training, and two of the image classes were selected for the binary classification. The basic training problem for the logistic regression classifier is as follows:
 
 $$ \underset{w}{min} \sum_i^{N_{total}}{log(1+exp(-y_i w^T x_i))} $$
 
 $w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $y_i \in \{-1,1\}$ represents the class label of the $i^{th}$ image.
 
-# Adding Convex Constraints
+## Adding Convex Constraints
 For convenience, the image vectors are concatenated into matrices:
 
 $$ X \in R^{N_{total} x 3073}, X_{major} \in R^{N_{major} x 3073}, X_{minor} \in R^{N_{minor} x 3073} $$
@@ -33,7 +33,7 @@ $$ where \space m = -\frac{1}{N_{minor}} X_{minor}^T \textbf{1} - \frac{1}{N_{ma
 
 $$ C = \{z|z \geq 0\} $$
 
-# ADMM Derivation
+## ADMM Derivation
 The ADMM updates are derived using $a$ as the dual variable for the first constraint and $b$ as the dual variable for the second constraint. First, $w$ is updated:
 
 $$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} {||X \hat{w} - u^{(k)}||}_{2}^{2} + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
@@ -68,7 +68,7 @@ $$ a^{(k+1)} = a^{(k)} + t(Xw^{(k+1)} - u^{(k+1)}) $$
 
 $$ b^{(k+1)} = b^{(k)} + t(m^T w^{(k+1)} - z^{(k+1)}) $$
 
-## References:
+# References:
 [1]	N. Japkowicz and S. Stephen, “The Class Imbalance Problem: A Systematic Study,” Intelligent Data Analysis, pp. 429-449, 2002.
 
 [2]	S.P. Boyd and L. Vandenberghe, Convex Optimization. Cambridge: Cambridge University Press, 2009.
