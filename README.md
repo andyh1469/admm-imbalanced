@@ -17,7 +17,7 @@ $w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \
 ## Adding Convex Constraints
 For convenience, the image vectors are concatenated into matrices:
 
-$$ X \in R^{N_{total} x 3073}, X_{major} \in R^{N_{major} x 3073}, X_{minor} \in R^{N_{minor} x 3073} $$
+$$ X \in R^{N_{total} \space \text{x} \space 3073}, X_{major} \in R^{N_{major} \space \text{x} \space 3073}, X_{minor} \in R^{N_{minor} \space \text{x} \space 3073} $$
 
 The constrained training approach adds two affine constraints. The first constraint is a change of variables to simplify the ADMM derivation. The second constraint states that the average classifier score $y_i w^T x_i$ of samples from the minority class must be greater than or equal to the average classifier score of samples from the majority class:
 
