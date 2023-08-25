@@ -66,7 +66,7 @@ $$ = \underset{\hat{z}}{argmin} \space (\delta_C(\hat{z}) + \frac{t}{2} {||\hat{
 
 $$ = prox_{\frac{1}{t}h} (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}) $$ 
 
-$$ where h(p) = \delta_C(p) $$
+$$ where \space h(p) = \delta_C(p) $$
 
 The projection onto $C$ is easy to compute as it is the projection onto the non-negative orthant. Finally, the dual variables are updated:
 
