@@ -68,7 +68,7 @@ $$ = prox_{\frac{1}{t}h} (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}) $$
 
 $$ where \space h(p) = \delta_C(p) $$
 
-$$ \frac{1}{t} P_C (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}) $$
+$$ = \frac{1}{t} P_C (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}) $$
 
 $P_C$ is the projection onto $C$, which is easy to compute as it is simply the projection onto the non-negative orthant. Finally, the dual variables are updated:
 
