@@ -64,7 +64,7 @@ $$ z^{(k+1)} = \underset{\hat{z}}{argmin} \space (\delta_C(\hat{z}) - b^{(k)} \h
 
 $$ = \underset{\hat{z}}{argmin} \space (\delta_C(\hat{z}) + \frac{t}{2} {||\hat{z} - m^T w^{(k+1)} - \frac{1}{t} b^{(k)}||}_{2}^{2}) $$
 
-$$ = prox_{\frac{1}{t}h} (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}), where h(p) = \delta_C(p) $$ 
+$$ = prox_{\frac{1}{t}h} (m^T w^{(k+1)} + \frac{1}{t} b^{(k)}), \space where h(p) = \delta_C(p) $$ 
 
 The projection onto $C$ is easy to compute as it is the projection onto the non-negative orthant. Finally, the dual variables are updated:
 
