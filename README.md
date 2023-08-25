@@ -42,7 +42,7 @@ $$ w^{(k+1)} = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{
 
 $$ + \frac{t}{2} {||m^T \hat{w} - z^{(k)}||}_{2}^{2}) $$
 
-$$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
+$$ = \underset{\hat{w}}{argmin} \space ({a^{(k)}}^T X \hat{w} + \frac{t}{2} (\hat{w}^T X^T X \hat{w} - 2 {u^{(k)}}^T X \hat{w}) + \frac{t}{2} ({(m^T \hat{w})}^2 - 2 z^{(k)} m^T \hat{w})) $$
 
 This is a quadratic equation in $\hat{w}$, therefore the $w$ update can be computed by setting the derivative to zero and finding a solution to a system of linear equations:
 
