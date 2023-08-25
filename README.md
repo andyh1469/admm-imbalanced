@@ -10,7 +10,7 @@ This project uses a dual optimization method (ADMM) to solve a large-scale logis
 ## Dataset and Initial Problem Setup
 The dataset used in this project is CIFAR-10, a collection of 32x32 color images from 10 different classes. The coloring model is RGB, bringing the total dimensionality of each image vector to $R^{3072}$. The pixel values were normalized before training, and two of the image classes were selected for the binary classification. The basic training problem for the logistic regression classifier is as follows:
 
-$$ \underset{w}{min} \sum_i^{N_{total}}{log(1+exp(-y_i w^T x_i))} $$
+$$ \underset{w}{min} \sum_{i=1}^{N_{total}}{log(1+exp(-y_i w^T x_i))} $$
 
 $w \in R^{3073}$ are the weights of the classifier (including bias term), $x_i \in R^{3073}$ is the data vector for the $i^{th}$ image, and $`y_i \in \{-1,1\}`$ represents the class label of the $i^{th}$ image.
 
@@ -21,7 +21,7 @@ $$ X \in R^{N_{total} \space \text{x} \space 3073}, X_{major} \in R^{N_{major} \
 
 The constrained training approach adds two affine constraints. The first constraint is a change of variables to simplify the ADMM derivation. The second constraint states that the average classifier score $y_i w^T x_i$ of samples from the minority class must be greater than or equal to the average classifier score of samples from the majority class:
 
-$$ \underset{u,w,z}{min} \space\delta_c(z) + \sum_i^{N_{total}}{log(1+exp(-y_i u_i))} $$
+$$ \underset{u,w,z}{min} \space\delta_c(z) + \sum_{i=1}^{N_{total}}{log(1+exp(-y_i u_i))} $$
 
 $$ subject \space to: $$
 
