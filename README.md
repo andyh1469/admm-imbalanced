@@ -1,11 +1,11 @@
 # ADMM for Class-Imbalanced Training of Binary Image Classifiers
 
-# Summary:
+# Summary
 In machine learning, class imbalance is a common challenge for many classification tasks. It can arise in many applications, for example in medical diagnosis of rare skin conditions where the vast majority of available training samples come from people who do not have the disease. Lack of available data from one class often leads to the model prioritizing good performance on the majority class during training. As a result, the classifier exhibits especially poor performance on the minority class during test time. This problem is typically addressed by adding regularization terms to the loss function or pre-processing the training data. These measures still utilize common iterative methods such as gradient descent for training and do not involve changes to the optimization algorithm itself. 
 
 This project uses a dual optimization method (ADMM) to solve a large-scale logistic regression problem for binary image classification, given an imbalanced training set. A hard constraint is added to encourage the model to classify the minority labels with the same effectiveness as the majority labels.
 
-# Derivation:
+# Derivation
 
 ## Dataset and Initial Problem Setup
 The dataset used in this project is CIFAR-10, a collection of 32x32 color images from 10 different classes. The coloring model is RGB, bringing the total dimensionality of each image vector to $R^{3072}$. The pixel values were normalized before training, and two of the image classes were selected for the binary classification. The basic training problem for the logistic regression classifier is as follows:
@@ -76,7 +76,7 @@ $$ a^{(k+1)} = a^{(k)} + t(Xw^{(k+1)} - u^{(k+1)}) $$
 
 $$ b^{(k+1)} = b^{(k)} + t(m^T w^{(k+1)} - z^{(k+1)}) $$
 
-# References:
+# References
 [1]	N. Japkowicz and S. Stephen, “The Class Imbalance Problem: A Systematic Study,” Intelligent Data Analysis, pp. 429-449, 2002.
 
 [2]	S.P. Boyd and L. Vandenberghe, Convex Optimization. Cambridge: Cambridge University Press, 2009.
