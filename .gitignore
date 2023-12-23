@@ -1,3 +1,2 @@
-.idea/
-solvers/__pycache__/
-utils/__pycache__/
+**/__pycache__
+results

@@ -1,13 +1,18 @@
-from utils import dataset_utils
-from utils import eval_utils
-from solvers.admm import ADMM
-from solvers.cvx import CVX
-from sklearn.linear_model import LogisticRegression
+import logging
 import time
 
-if __name__ == '__main__':
+from sklearn.linear_model import LogisticRegression
+
+from solvers.admm import ADMM
+from solvers.cvx import CVX
+from utils import dataset_utils, eval_utils
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    logger = logging.getLogger("main_logger")
+
     # load dataset
-    (X_train,y_train), (X_test,y_test) = dataset_utils.load_cifar10(0,2)
+    (X_train, y_train), (X_test, y_test) = dataset_utils.load_cifar10(0, 2)
 
     # preprocess and create imbalanced train set
     X_train, y_train = dataset_utils.preprocess(X_train, y_train, size=1000, isTrain=True)
@@ -17,26 +22,28 @@ if __name__ == '__main__':
     X_test, y_test = dataset_utils.preprocess(X_test, y_test)
 
     # ADMM
+    logger.info("Running ADMM...")
     admm = ADMM(X_train, y_train)
     start = time.time()
     admm.run(diff=1e-2)
     end = time.time()
-    print('ADMM results:')
     eval_utils.accuracy(admm.w, X_train, y_train, X_test, y_test)
-    print('ADMM completed in {} seconds\n'.format(round(end - start, 2)))
+    logger.info(f"ADMM completed in {round(end - start, 2)} seconds")
+    logger.info("-------------------------------------------------")
 
     # CVX
+    logger.info("Running CVX...")
     cvx = CVX(X_train, y_train)
     start = time.time()
     cvx.run()
     end = time.time()
-    print('CVX results:')
     eval_utils.accuracy(cvx.w, X_train, y_train, X_test, y_test)
-    print('CVX completed in {} seconds\n'.format(round(end - start, 2)))
+    logger.info(f"CVX completed in {round(end - start, 2)} seconds")
+    logger.info("-------------------------------------------------")
 
     # unconstrained logistic regression
-    print('Running vanilla logistic regression...')
+    logger.info("Running vanilla logistic regression...")
     clf = LogisticRegression(penalty=None).fit(X_train, y_train)
-    print('Done!\n')
-    print('Vanilla logistic regression results:')
     eval_utils.accuracy(clf.coef_[0], X_train, y_train, X_test, y_test)
+    logger.info("Vanilla logistic regression completed")
+    logger.info("-------------------------------------------------")

@@ -1,8 +1,13 @@
-import numpy as np
+import logging
 import math
-import matplotlib.pyplot as plt
+import os
+import time
 
-class ADMM():
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+class ADMM:
     def __init__(self, X_train, y_train, t=0.01):
         self.X = X_train
         self.y = y_train
@@ -12,13 +17,17 @@ class ADMM():
         self.y_minor = self.y[np.where(self.y == -1)[0]]
 
         self.t = t
-        self.m = -(1/len(self.y_minor))*(self.X_minor.T @ np.ones(len(self.y_minor))) \
-                 - (1/len(self.y_major))*(self.X_major.T @ np.ones(len(self.y_major)))
+        self.m = -(1 / len(self.y_minor)) * (self.X_minor.T @ np.ones(len(self.y_minor))) - (1 / len(self.y_major)) * (
+            self.X_major.T @ np.ones(len(self.y_major))
+        )
         self.w = np.zeros(self.X.shape[1])
         self.u = self.X @ self.w
         self.z = self.m @ self.w
         self.a = np.zeros(len(self.u))
         self.b = 0
+
+        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+        self.logger = logging.getLogger("admm_logger")
 
     def loss(self):
         losses = np.log(1 + np.exp(np.multiply(-self.y, self.u)))
@@ -30,13 +39,13 @@ class ADMM():
     def w_update(self):
         q = ((-self.X.T) @ self.a) + self.t * (self.X.T @ self.u) + (self.t * self.z * self.m)
         term = self.t * (self.X.T @ self.X) + self.t * (self.m @ self.m.T)
-        self.w = np.linalg.solve(term,q)
+        self.w = np.linalg.solve(term, q)
 
     def z_update(self):
         temp = (self.m @ self.w) + (self.b / self.t)
 
         if temp >= 0:
-            self.z = (1 / self.t)*temp
+            self.z = (1 / self.t) * temp
         else:
             self.z = 0
 
@@ -51,21 +60,19 @@ class ADMM():
             num_iter += 1
             if num_iter >= 1:
                 start = 0
-            grad = -a + (self.t * sol) - (self.t * term) \
-                   + (-y / (np.exp(y * sol) + 1))
-            hes = self.t + ((y ** 2) * np.exp(y * sol)) / ((np.exp(y * sol) + 1) ** 2)
+            grad = -a + (self.t * sol) - (self.t * term) + (-y / (np.exp(y * sol) + 1))
+            hes = self.t + ((y**2) * np.exp(y * sol)) / ((np.exp(y * sol) + 1) ** 2)
             step = -(1 / hes) * grad
             sol += step
-            dec = (1 / hes) * (grad ** 2)
+            dec = (1 / hes) * (grad**2)
 
         return sol
 
-    def run(self, diff = 1e-2):
-        print('Running ADMM...')
+    def run(self, diff=1e-2):
         iter_count = 0
         loss_prev = 0
         loss_cur = self.loss()
-        print('Starting loss:', loss_cur)
+        self.logger.info(f"Starting loss: {loss_cur}")
         start = 1
         loss_hist = [loss_cur]
 
@@ -88,12 +95,15 @@ class ADMM():
             loss_prev = loss_cur
             loss_cur = self.loss()
             loss_hist.append(loss_cur)
-            print('Loss after iteration {}: {}'.format(iter_count,loss_cur))
+            self.logger.info(f"Loss after iteration {iter_count}: {loss_cur}")
+
+        if not os.path.exists("results"):
+            os.makedirs("results")
 
         # plot results
-        print('Done!\n')
+        self.logger.info(f"ADMM converged with loss delta of {abs(loss_prev - loss_cur)}")
         plt.figure()
-        plt.yscale('log')
-        plt.plot(range(iter_count+1),loss_hist,'-o')
-        plt.title('ADMM Train Loss')
-        plt.show()
+        plt.yscale("log")
+        plt.plot(range(iter_count + 1), loss_hist, "-o")
+        plt.title("ADMM Train Loss")
+        plt.savefig(f"results/admm {time.asctime()}.png")
