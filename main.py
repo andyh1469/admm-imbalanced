@@ -1,15 +1,14 @@
-import logging
 import time
 
 from sklearn.linear_model import LogisticRegression
 
 from solvers.admm import ADMM
 from solvers.cvx import CVX
-from utils import dataset_utils, eval_utils
+from utils import dataset_utils, eval_utils, log_utils
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-    logger = logging.getLogger("main_logger")
+    timestamp = time.asctime()
+    logger = log_utils.get_logger(timestamp)
 
     # load dataset
     (X_train, y_train), (X_test, y_test) = dataset_utils.load_cifar10(0, 2)
@@ -23,7 +22,7 @@ if __name__ == "__main__":
 
     # ADMM
     logger.info("Running ADMM...")
-    admm = ADMM(X_train, y_train)
+    admm = ADMM(X_train, y_train, timestamp)
     start = time.time()
     admm.run(diff=1e-2)
     end = time.time()

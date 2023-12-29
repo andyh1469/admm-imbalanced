@@ -6,9 +6,11 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
+from utils import log_utils
+
 
 class ADMM:
-    def __init__(self, X_train, y_train, t=0.01):
+    def __init__(self, X_train, y_train, timestamp, t=0.01):
         self.X = X_train
         self.y = y_train
         self.X_major = self.X[np.where(self.y == 1)[0]]
@@ -26,8 +28,8 @@ class ADMM:
         self.a = np.zeros(len(self.u))
         self.b = 0
 
-        logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
-        self.logger = logging.getLogger("admm_logger")
+        self.timestamp = timestamp
+        self.logger = log_utils.get_logger(self.timestamp)
 
     def loss(self):
         losses = np.log(1 + np.exp(np.multiply(-self.y, self.u)))
@@ -97,8 +99,8 @@ class ADMM:
             loss_hist.append(loss_cur)
             self.logger.info(f"Loss after iteration {iter_count}: {loss_cur}")
 
-        if not os.path.exists("results"):
-            os.makedirs("results")
+        if not os.path.exists("plots"):
+            os.makedirs("plots")
 
         # plot results
         self.logger.info(f"ADMM converged with loss delta of {abs(loss_prev - loss_cur)}")
@@ -106,4 +108,4 @@ class ADMM:
         plt.yscale("log")
         plt.plot(range(iter_count + 1), loss_hist, "-o")
         plt.title("ADMM Train Loss")
-        plt.savefig(f"results/admm {time.asctime()}.png")
+        plt.savefig(f"plots/plot {self.timestamp}.png")
